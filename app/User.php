@@ -48,4 +48,10 @@ class User extends Authenticatable
 
         return false;
     }
+
+
+    public function books()
+    {
+        return $this->belongsToMany('App\Book');
+    }
 }

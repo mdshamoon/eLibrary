@@ -64,6 +64,10 @@
                                      <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                      User Management
                                      </a>
+
+                                     <a class="dropdown-item" href="{{ route('admin.books.index') }}">
+                                     Books Management
+                                     </a>
                                      @endcan
                             
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
