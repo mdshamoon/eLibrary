@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Book;
@@ -112,5 +113,15 @@ class BooksController extends Controller
         //
         $book->delete();
         return redirect()->route('admin.books.index');
+    }
+
+    public function read($name){
+        $user= Auth::user();
+        $book= Book::select('id')->where('name',$name)->first();
+       
+        if($user->books()->where('user_id',$book)->exists())
+          return redirect()->route('home');
+        $user->books()->attach($book);
+        return redirect()->route('home');
     }
 }

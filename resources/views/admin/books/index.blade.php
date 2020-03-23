@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card p-4">
-            <div class="col-md-4 m-3">
+            <div class="col-md-4 mb-4">
             <a href="{{route('admin.books.create')}}" class="btn btn-primary">Add a New Book</a>
             </div>
                   
