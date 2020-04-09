@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Role;
+use Spatie\Permission\Models\Role;
 use App\User;
 class UsersTableSeeder extends Seeder
 {
@@ -14,10 +14,9 @@ class UsersTableSeeder extends Seeder
     {
         //
         User::truncate();
-        DB::table('role_user')->truncate();
+       
 
-        $adminRole= Role::where('name','admin')->first();
-        $userRole= Role::where('name','user')->first();
+        
 
         $admin = User::create(['name' => "Admin",
                                 'email'=> "admin@admin.com",
@@ -27,8 +26,9 @@ class UsersTableSeeder extends Seeder
                                 'email'=> "shamoon@gmail.com",
                                 'password'=> Hash::make("12345678") ]);   
                                 
-        $admin->roles()->attach($adminRole);
-        $user->roles()->attach($userRole);
+        $admin->assignRole('admin');
+        $user->assignRole('reader');
+
                                 
     }
 }

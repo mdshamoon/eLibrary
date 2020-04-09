@@ -15,9 +15,11 @@ class CreateBookUserTable extends Migration
     {
         Schema::create('book_user', function (Blueprint $table) {
             $table->id();
-            $table->integer('book_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->timestamps();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('user_id');
+      
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

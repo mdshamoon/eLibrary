@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Book;
+use App\Genre;
+
 class BooksController extends Controller
 {
     /**
@@ -29,7 +31,8 @@ class BooksController extends Controller
     public function create()
     {
         //
-        return view('admin.books.create');
+        $genre=Genre::all();
+        return view('admin.books.create')->with(['genre'=>$genre]);
 
        
         

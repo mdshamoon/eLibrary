@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<link rel="stylesheet" href="{{URL::asset('css/jquery.dropdown.css')}}" type="text/css">
+
+<script src="{{URL::asset('js/jquery.dropdown.js')}}"></script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -25,13 +31,18 @@
 
                     <div class="form-group">
                         <label for="sel1">Select Genre:</label>
-                        <select class="form-control" id="genre" name="genre">
-                            <option value="comedy">Comedy</option>
-                            <option value="romance">Romance</option>
-                            <option value="horror">Horror</option>
-                            <option value="fiction">Fiction</option>
+                        <select class="form-control" id="genre" name="genre[]" multiple="multiple">
+                            @foreach ($genre as $Genre)
+                        <option value="{{$Genre->genre}}">{{$Genre->genre}}</option>
+                            @endforeach
+                            
                         </select>
                         </div>
+
+
+
+                       
+                        
                     <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -44,4 +55,7 @@
         </div>
     </div>
 </div>
+
+
+
 @endsection

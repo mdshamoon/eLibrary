@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use Gate;
-use App\Role;
+
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;

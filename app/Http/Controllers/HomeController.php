@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Book;
+use App\User;
+use Carbon\Carbon;
+use App\Notifications\WeeklyMail;
+
+use Spatie\Permission\Models\Role;
+
+use App\Jobs\WeeklyMailJob;
+use App\Jobs\MailServices;
 
 class HomeController extends Controller
 {
@@ -24,12 +32,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $reads= auth()->user();
+        $read= $reads->books()->get();
 
-        $read= Auth::user()->books()->get();
-    
         
+         
+      
+      
+      
         $book= Book::all();
-
+        
+        
         
         return view('home')->with(['books' => $book, 'reads' => $read]);
     }
