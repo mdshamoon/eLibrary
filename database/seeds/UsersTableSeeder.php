@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
                                 'password'=> Hash::make("12345678") ]);
          
         $user = User::create(['name' => "Shamoon",
-                                'email'=> "shamoon@gmail.com",
+                                'email'=> "shamoonmalik143@gmail.com",
                                 'password'=> Hash::make("12345678") ]);   
                                 
         $admin->assignRole('admin');

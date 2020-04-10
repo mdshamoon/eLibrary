@@ -10,10 +10,9 @@
                 $readbook=false;  
                 @endphp
                 <div class="card-body">
-                        <form action="{{route('read.books')}}" class="form-inline p-3" method="GET">
-                                    @csrf
+                       
                                    
-                            <div class="form-inline ">
+                            <div class="form-inline p-3">
                                 <label for="List">List By:</label>
                                 <select class="form-control ml-2" id="list" name="list">
                                     <option value="all">All</option>
@@ -21,10 +20,10 @@
                                     <option value="notread">Not Read</option>
                                    
                                 </select>
-                                <button type="submit" class="btn btn-primary ml-2">Apply</button>
+                               
                                 </div>
 
-                        </form>
+                      
 
                         <table class="table border">
                                 <thead class="thead-dark">
@@ -40,38 +39,22 @@
                                 <tbody>
         
                                         @foreach($books as $book)
-                                        <tr>
+                                        
+                                        <tr id="{{$book->id}}">
                                             <td>{{ $book->id }}</td>
                                             <td>{{ $book->name }}</td>
                                             <td>{{ $book->author }}</td>
                                             <td>{{ $book->edition }}</td>
                                             <td>{{ $book->genre }}</td>
                                             <td>
-                                             @foreach ($reads as $read)
-                                                 @if($book->id==$read->id)
-                                                   @php 
-                                                   $readbook=true;
-                                                   break;
+                                         
 
-                                                   @endphp
-
-                                                 
-                                                 @else
-                                                    @php 
-                                                    $readbook=false;
-
-                                                    @endphp
-
-                                                 @endif
-
-                                             @endforeach
-
-                                             @if($readbook)
+                                             @if($book->user_id!=null)
                                               <a href="#" class="btn btn-success">Read</a>
                                               @else
                                               <a href="{{route('books.read', $book->name)}}" class="btn btn-info">Mark as Read</a>
                                               @endif
-                                            </td>
+                                            </td> 
                                         </tr>
                                         @endforeach
                                
@@ -84,4 +67,38 @@
         </div>
     </div>
 </div>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script>
+var book=@json($books);
+    $('#list').change(function(){
+        var option = $(this).children("option:selected").val();
+        if(option=="read")
+        $.each(book, function(i, item) {
+    if(item.user_id==null)
+    $('#'+item.id).css("display","none");
+    else
+    $('#'+item.id).css("display","table-row");
+});
+
+   else if(option=="notread")
+    $.each(book, function(i, item) {
+    if(item.user_id!=null)
+    $('#'+item.id).css("display","none");
+    else
+    $('#'+item.id).css("display","table-row");
+
+    });
+
+    else if(option=="all")
+    $.each(book, function(i, item) {
+    
+    $('#'+item.id).css("display","table-row");
+    
+    });
+
+});
+
+
+    </script>
+
 @endsection

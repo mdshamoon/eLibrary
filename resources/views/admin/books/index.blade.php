@@ -32,7 +32,16 @@
                                     <td>{{ $book->name }}</td>
                                     <td>{{ $book->author }}</td>
                                     <td>{{ $book->edition }}</td>
-                                    <td>{{ $book->genre }}</td>
+                                    <td>
+                                                
+                                            @foreach ($book->genres()->get() as $genre)
+                                            
+                                            {{ $genre['genre'] }} 
+                                            @if ($loop->last) @break @endif
+                                            ,
+                                            
+                                            @endforeach</td>
+                                        
                                     <td>
                                     <a href="{{ route('admin.books.edit', $book->id) }}" > <button type="button" class="float-left btn btn-warning">Edit</button></a>
                                     <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" class="ml-2 float-left" >

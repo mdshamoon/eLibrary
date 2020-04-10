@@ -4,9 +4,10 @@
 
 <script src="//code.jquery.com/jquery.min.js"></script>
 
-<link rel="stylesheet" href="{{URL::asset('css/jquery.dropdown.css')}}" type="text/css">
+<link rel="stylesheet" href="{{asset('css/jquery.dropdown.min.css')}}" type="text/css">
 
-<script src="{{URL::asset('js/jquery.dropdown.js')}}"></script>
+<script src="{{asset('js/jquery.dropdown.min.js')}}"></script>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -29,11 +30,11 @@
                         <input type="number" name="edition" class="form-control" placeholder="Enter Edition" id="edition">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group demo">
                         <label for="sel1">Select Genre:</label>
-                        <select class="form-control" id="genre" name="genre[]" multiple="multiple">
+                        <select class="form-control" style="display:none" id="genre" name="genre[]" multiple="multiple" value="['Fantasy']">
                             @foreach ($genre as $Genre)
-                        <option value="{{$Genre->genre}}">{{$Genre->genre}}</option>
+                        <option value={{$Genre->id}}>{{$Genre->genre}}</option>
                             @endforeach
                             
                         </select>
@@ -56,6 +57,12 @@
     </div>
 </div>
 
+<script>
+    $('.demo').dropdown({
+        multipleMode:'label'
 
+});
+
+    </script>
 
 @endsection

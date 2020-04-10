@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Book;
+use DB;
 use App\User;
 use Carbon\Carbon;
 use App\Notifications\WeeklyMail;
@@ -40,11 +41,13 @@ class HomeController extends Controller
       
       
       
-        $book= Book::all();
+        $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )->where('user_id',$reads->id)->orWhere('user_id',null)
+        ->rightjoin('books', 'book_user.book_id','=','books.id')->join('book_genre','books.id','=','book_genre.book_id')->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition')->get();
+ 
+      
         
         
-        
-        return view('home')->with(['books' => $book, 'reads' => $read]);
+        return view('home')->with(['books' => $book]);
     }
 
     public function read(Request $request)

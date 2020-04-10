@@ -20,6 +20,10 @@ class BooksController extends Controller
         //
 
         $book= Book::all();
+
+        
+
+        
         return view('admin.books.index')->with('books',$book);
     }
 
@@ -54,9 +58,14 @@ class BooksController extends Controller
             'name' => $request->name,
             'author' => $request->author,
             'edition' => $request->edition,
-            'genre' => $request->genre
+            
 
         ]);
+
+        foreach($request->genre as $genre)
+        {
+            $book->genres()->attach($genre);
+        }
 
         return redirect()->route('admin.books.index');
     }
@@ -83,7 +92,13 @@ class BooksController extends Controller
     {
         //
         $book= Book::where('id',$id)->first();
-        return view('admin.books.edit')->with('book',$book);
+
+        
+        $mygenres=$book->genres()->get();
+        $genre=Genre::all();
+
+        
+        return view('admin.books.edit')->with(['book'=>$book, 'genre'=>$genre,'mygenres'=> $mygenres]);
     }
 
     /**
@@ -100,8 +115,14 @@ class BooksController extends Controller
                 ->update(['name' => $request->name,
                          'author'=>$request->author,
                          'edition'=>$request->edition,
-                         'genre'=>$request->genre]
+                         ]
                         );
+
+             $book=Book::where('id', $id)->first();
+             $book->genres()->detach();
+             $book->genres()->attach($request->genre)     ;  
+
+
           return redirect()->route('admin.books.index');            
     }
 
@@ -114,6 +135,7 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
         //
+        $book->genres()->detach();
         $book->delete();
         return redirect()->route('admin.books.index');
     }
