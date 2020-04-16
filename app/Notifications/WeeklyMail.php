@@ -48,7 +48,7 @@ class WeeklyMail extends Notification implements ShouldQueue
         foreach($this->book as $book)
         $books=$books.$book->name." ";
 
-        $books=nl2br($books);
+    
         return (new MailMessage)
                     ->line('Books read this week.')
                     ->line($books);

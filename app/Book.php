@@ -9,7 +9,7 @@ class Book extends Model
     //
 
     protected $fillable = [
-        'name', 'author', 'edition','genre'
+        'name', 'author', 'edition','genre','cover'
     ];
 
     public function users()

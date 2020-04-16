@@ -54,10 +54,22 @@ class BooksController extends Controller
     {
         //
 
+        
+
+        $this->validate($request, [
+            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+    
+      
+       $imagename=$request->cover->getClientOriginalName();
+       $request->cover->move(public_path('images/cover'), $imagename);
+
         $book= Book::create([
             'name' => $request->name,
             'author' => $request->author,
             'edition' => $request->edition,
+            'cover' => $imagename,
             
 
         ]);
@@ -120,6 +132,8 @@ class BooksController extends Controller
 
              $book=Book::where('id', $id)->first();
              $book->genres()->detach();
+
+             
              $book->genres()->attach($request->genre)     ;  
 
 
@@ -148,5 +162,12 @@ class BooksController extends Controller
           return redirect()->route('home');
         $user->books()->attach($book);
         return redirect()->route('home');
+    }
+
+
+    public function category(Request $request)
+    {
+
+dd($request->genre);
     }
 }

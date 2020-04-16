@@ -14,7 +14,7 @@
             <div class="card border border-dark">
                 
               
-                 <form action="{{route('admin.books.store')}}" class="m-4" method="POST">
+                 <form action="{{route('admin.books.store')}}" class="m-4" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="Name">Name:</label>
@@ -32,13 +32,18 @@
 
                     <div class="form-group demo">
                         <label for="sel1">Select Genre:</label>
-                        <select class="form-control" style="display:none" id="genre" name="genre[]" multiple="multiple" value="['Fantasy']">
+                        <select class="form-control" style="display:none" id="genre" name="genre[]" multiple="multiple" value="">
                             @foreach ($genre as $Genre)
                         <option value={{$Genre->id}}>{{$Genre->genre}}</option>
                             @endforeach
                             
                         </select>
                         </div>
+
+                        <div class="form-group">
+                                <label for="poster">Book Cover:</label>
+                                <input type="file" name="cover" class="form-control"  id="cover" required>
+                            </div>   
 
 
 

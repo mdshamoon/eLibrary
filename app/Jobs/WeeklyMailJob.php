@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Notifications\WeeklyMail;
+use Carbon\Carbon;
 
 class WeeklyMailJob implements ShouldQueue
 {
@@ -35,7 +36,7 @@ class WeeklyMailJob implements ShouldQueue
         $users= User::all();
         foreach($users as $user)
         {
-          $lasttime= $user->books()->where('created_at','>=',DATEADD(day, -7, GETDATE()))->get();
+          $lasttime= $user->books()->where('book_user.created_at','>=',Carbon::now()->subDays(7))->get();
 
         
           
