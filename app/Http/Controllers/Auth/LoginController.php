@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
+Use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\User;
+
 class LoginController extends Controller
 {
     /*
