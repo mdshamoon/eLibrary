@@ -245,7 +245,7 @@ class BooksController extends Controller
         if($user->books()->where('user_id',$book)->exists())
           return redirect()->route('home');
         $user->books()->attach($book);
-        return redirect()->route('home');
+        return $book;
     }
 
 

@@ -5,7 +5,26 @@
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 
-
+<style>
+.container{
+    @media (min-width: 1200px)
+.container {
+    max-width: 1140px;
+}
+@media (min-width: 992px)
+.container {
+    max-width: 1140px;
+}
+@media (min-width: 768px)
+.container {
+    max-width: 960px;
+}
+@media (min-width: 576px)
+.container {
+    max-width: 720px;
+}
+}
+</style>
 
 
 <div class="container">
@@ -79,7 +98,7 @@
                                                     
                                                     @foreach($books as $book)
                                                     
-                                                    <tr class="col-xs-3 col-sm-6 col-md-3" id="{{$book->id}}">
+                                                    <tr class=" col-sm-6 col-md-4 col-lg-3" id="{{$book->id}}">
                                                       <td class="d-block"> <div class="card mb-4 shadow" style="min-height: 420px;">
                                                             <div class="card-body text-center position-relative" style="border:none">
                                                             <p><img class=" img-fluid" src="{{asset('images/cover/'.$book->cover)}}" alt="card image" style="max-height: 200px"></p>
@@ -216,9 +235,15 @@
 
 $('.bookNotRead').click(function(mybutton){
   $.ajax({url: $(this).attr('data-item'), success: function(result){
-   
+   console.log(result.id)
       $(mybutton.target).addClass('badge-success').removeClass('bookNotRead').html('<i class="fa fa-check"></i> You have read this book')
-   
+      $.each(book, function(i,item) {
+  if (item.id==result.id) {
+      item.user_id=0
+    
+  }
+  
+});
   },
   error: function(result){
   console.log(result);
@@ -230,6 +255,7 @@ $('.bookNotRead').click(function(mybutton){
 
 
 var book=@json($books);
+console.log(book);
 let readcount=book.filter(function(item){
     return item.user_id!=null
 }).length;
@@ -296,9 +322,9 @@ $("#sidebarToggleTop").remove()
 
 
    
-console.log("cdvc");
+
     $( document ).ready(function() {
-        console.log("cdvc");
+     
         $('.dropdown-display-label').addClass("mx-2");
        
 });
