@@ -8,12 +8,14 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet"
+        href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+               
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -48,41 +50,48 @@
                 font-size: 84px;
             }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+           
+
+           
+
+        
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 0px;
             }
+
+            h3{
+                max-width: 700px;
+                margin-bottom: 20px;
+
+            }
+
+           
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
+         
+
+            <div class="content">
+                <div class="title m-b-md">
+                        <i class='bx bxs-book-open'></i> E-Library
+                </div>
+                <h3>A portal where you can see all the available books in the library and
+                     which will keep you reminded to read books.</h3>
+                @if (Route::has('login'))
+                <div class="links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                       <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                       <a href="{{ route('login') }}" class="btn btn-primary mr-2">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
                         @endif
                     @endauth
                 </div>
             @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    E-Library
-                </div>
 
              
             </div>

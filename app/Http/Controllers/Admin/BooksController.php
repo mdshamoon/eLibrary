@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Book;
 use App\Genre;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 class BooksController extends Controller
 {
     /**
@@ -15,16 +16,16 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-
+      
         $book= Book::all();
 
-        
+     
 
         
-        return view('admin.books.index')->with('books',$book);
+        return view('admin.books.index')->with('books',$book)->with('message', $request->message);
     }
 
     /**
@@ -56,10 +57,29 @@ class BooksController extends Controller
 
         
 
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+            'name' =>'required|max:40',
+                'author' => 'required|max:40',
+                'edition' => 'required|max:40',
+                'genre' => 'required',
+        ],['required' => ':attribute field is required',
+        'max'=> ':attribute is too long']);
+       
+         
+        if ($validator->fails()) {
+            
 
+             
+             return redirect()->back()->withErrors($validator);
+        }
+             
+        // finally store our user
+         
+     
+        
+
+     
     
       
        $imagename=$request->cover->getClientOriginalName();
@@ -123,12 +143,74 @@ class BooksController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+       
+        if($request->has('cover'))
+        {
+            $validator = Validator::make($request->all(), [
+                'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'name' =>'required|max:40',
+                'author' => 'required|max:40',
+                'edition' => 'required|max:40',
+                'genre' => 'required|max:40',
+            ],['required' => ':attribute field is required',
+            'max'=> ':attribute is too long']);
+           
+             
+            if ($validator->fails()) {
+                
+    
+                 
+                 return redirect()->back()->withErrors($validator);
+            }
+    
+        
+          
+           $imagename=$request->cover->getClientOriginalName();
+           $request->cover->move(public_path('images/cover'), $imagename);
         Book::where('id', $id)
                 ->update(['name' => $request->name,
                          'author'=>$request->author,
                          'edition'=>$request->edition,
+                         'cover'=> $imagename
                          ]
                         );
+
+
+
+           
+        }
+
+        
+
+        else{
+
+            $validator = Validator::make($request->all(), [
+                
+                'name' =>'required|max:40',
+                'author' => 'required|max:40',
+                'edition' => 'required|max:40',
+                'genre' => 'required|max:40',
+            ],['required' => ':attribute field is required',
+            'max' => 'The :attribute value should be less than :max.']);
+           
+             
+            if ($validator->fails()) {
+                
+    
+                 
+                 return redirect()->back()->withErrors($validator);
+            }
+            Book::where('id', $id)
+            ->update(['name' => $request->name,
+                     'author'=>$request->author,
+                     'edition'=>$request->edition,
+                     ]
+                    ); 
+           
+                    }
+
+                   
 
              $book=Book::where('id', $id)->first();
              $book->genres()->detach();
@@ -137,7 +219,7 @@ class BooksController extends Controller
              $book->genres()->attach($request->genre)     ;  
 
 
-          return redirect()->route('admin.books.index');            
+          return redirect()->route('admin.books.index')->with('message','Successfully Updated');;            
     }
 
     /**
@@ -150,8 +232,10 @@ class BooksController extends Controller
     {
         //
         $book->genres()->detach();
+        $filename = public_path().'/images/cover/'.$book->cover;
+        \File::delete($filename);
         $book->delete();
-        return redirect()->route('admin.books.index');
+        return redirect('admin/books')->with('message','Successfully Removed');
     }
 
     public function read($name){

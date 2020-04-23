@@ -27,6 +27,22 @@ class HomeController extends Controller
         $this->middleware(['auth','verified']);
     }
 
+
+    public function joinTables()
+    {
+        $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
+        ->rightjoin('books',function ($join) {
+            $join->on('book_user.book_id', '=' , 'books.id') ;
+           $reads= auth()->user();
+
+            $join->where('book_user.user_id','=',$reads->id) ;
+        })
+        ->join('book_genre','books.id','=','book_genre.book_id')->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition')
+        ->get();
+
+        return $book;
+ 
+    }
     /**
      * Show the application dashboard.
      *
@@ -47,6 +63,7 @@ class HomeController extends Controller
         if($request->filled('genre'))
         {
             
+            if($request->genre[0]!="all"){
             $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
             ->rightjoin('books',function ($join) {
                 $join->on('book_user.book_id', '=' , 'books.id') ;
@@ -61,26 +78,26 @@ class HomeController extends Controller
             })->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition')->get();
      
             return view('home')->with(['books' => $book, 'genre'=>$genre, 'mygenres'=> $request->genre]);
-          
+        }
+    
+        else{
+            $book=$this->joinTables();
+        }
         }
 
 
         else{
+            $book=$this->joinTables();
+        }
+
+
+      
          
       
       
       
-        $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
-        ->rightjoin('books',function ($join) {
-            $join->on('book_user.book_id', '=' , 'books.id') ;
-           $reads= auth()->user();
-
-            $join->where('book_user.user_id','=',$reads->id) ;
-        })
-        ->join('book_genre','books.id','=','book_genre.book_id')->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition')
-        ->get();
- 
-    }
+       
+    
         
         
         return view('home')->with(['books' => $book, 'genre'=>$genre,'mygenres'=>[]]);

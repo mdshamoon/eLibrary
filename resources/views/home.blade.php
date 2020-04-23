@@ -1,26 +1,35 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
 <script src="//code.jquery.com/jquery.min.js"></script>
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="{{asset('css/jquery.dropdown.min.css')}}" type="text/css">
-<script src="{{asset('js/jquery.dropdown.min.js')}}"></script>
+
+
+
 
 
 <div class="container">
          
-        <div class="form-inline p-3">
-                <label for="List">List By:</label>
-                <select class="form-control ml-2" id="list" name="list">
+        
+            <div class="row pb-3">
+                  <div class="col-md-3">
+                      <div class="form-inline">
+                <label for="List ">List By:</label>
+                <select class="form-control mx-2" id="list" name="list">
                     <option value="all">All</option>
                     <option value="read">Read</option>
                     <option value="notread">Not Read</option>
                    
                 </select>
-
-                <form class="ml-2" action="{{ route('home') }}">Filters:
-                     <div class="demo" style="display: inline-block">
-                        <select class="form-control" style="display:none" id="genre" name="genre[]" multiple="multiple" value="">
+                    </div>
+                </div>
+                    <div class="col-md-8 ">
+                        <div class="">
+                <form  action="{{ route('home') }}" class="form-inline mt-md-0 mt-2"> 
+                     
+                            <label for="List ">Category: </label>
+                        <select class="form-control mx-2"  id="genre" name="genre[]"  value="">
+                            <option value="all">All</option>
                                 @foreach ($genre as $Genre)
                             <option value={{$Genre->id}}
 
@@ -40,32 +49,76 @@
                                 @endforeach
                                 
                             </select>
-                        </div>
-
-                        <span><button type="submit" class="btn btn-primary">Search</button></span>
-                </form>
-               
+                     
+                        <div class="m-auto m-md-0"><button type="submit" class="mt-md-0 mt-2  btn btn-primary">Search</button></div>
+                    
+                    </form>
                 </div>
-        <div class="row">
-
-                @foreach($books as $book)
-        
-        
-                <div class="col-xs-12 col-sm-6 col-md-3" id="{{$book->id}}">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+            </div>
+            </div>
+               
+                
+        <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                        <h6 class="h4 m-0 font-weight-bold text-primary">Books</h6>
+                      </div>
+                      <div class="card-body">
+               
+      
+               
+                    {{-- <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                         <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="{{asset('images/cover/'.$book->cover)}}" alt="card image"></p>
-                                        <h4 class="card-title">{{$book->name}}</h4>
-                                    <p class="card-text">Author: {{$book->author}}</p>
-                                    <p class="card-text">Genre: {{$book->genre}}</p>
-                                    <p class="card-text">Edition: {{$book->edition}}</p>
-                                       
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="frontside"> --}}
+
+                                    <table id="dataTablecards" style="width:100%">
+                                           <thead>
+                                               <th></th>
+                                               <th>name</th>
+                                           </thead>
+                                            <tbody class="row" id="tbody">
+                                                    
+                                                    @foreach($books as $book)
+                                                    
+                                                    <tr class="col-xs-3 col-sm-6 col-md-3" id="{{$book->id}}">
+                                                      <td class="d-block"> <div class="card mb-4 shadow" style="min-height: 420px;">
+                                                            <div class="card-body text-center position-relative" style="border:none">
+                                                            <p><img class=" img-fluid" src="{{asset('images/cover/'.$book->cover)}}" alt="card image" style="max-height: 200px"></p>
+                                                                <h6 class="text-dark font-weight-bold">{{(strlen($book->name) > 22) ? substr($book->name,0,20).'..' : $book->name}}</h6>
+                                                                <hr class="sidebar-divider">
+                                                            <p class="card-text m-0 text-left ml-2  " style="font-size:0.9rem"><strong>Author:</strong> {{$book->author}}</p>
+                                                            <p class="card-text text-left ml-2" style="font-size:0.9rem"><strong>Genre:</strong> {{(strlen($book->genre) > 30) ? substr($book->genre,0,35).'...' : $book->genre}}</p>
+                                                            <span class="badge badge-primary"></span>
+                                                            @if($book->user_id!=null)
+                                                            <a href="javascript:void(0)" class="badge badge-success marking position-absolute readBook">
+                                                                    <i class="fa fa-check"></i> You have read this book</a>
+                                                            @else
+                                                            <a href="javascript:void(0)"  class="badge badge-primary position-absolute marking bookNotRead" data-item="{{route('books.read', $book->name)}}">
+                                                                   Click to mark the book as read</a>
+                                                            @endif
+                                                           
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </td>
+     
+                                                       <td>{{$book->name}}</td>
+
+                                                        
+                                                     
+                                                    </tr>
+                                               
+                                                   
+                                                    
+
+                                                    @endforeach
+                                               
+                                                  </tbody>
+                                                </table>
+
+                                            </div>
+                        </div>
+                               
+                            {{-- </div>
                             <div class="backside">
                                 <div class="card">
                                     <div class="card-body text-center">
@@ -87,10 +140,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> --}}
+                
 
-                @endforeach
+             
     {{-- <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -159,24 +212,65 @@
 
 <script>
 
-    
-$('.demo').dropdown({
-        multipleMode:'label'
 
+
+$('.bookNotRead').click(function(mybutton){
+  $.ajax({url: $(this).attr('data-item'), success: function(result){
+   
+      $(mybutton.target).addClass('badge-success').removeClass('bookNotRead').html('<i class="fa fa-check"></i> You have read this book')
+   
+  },
+  error: function(result){
+  console.log(result);
+  }
+  
+  });
 });
+    
+
 
 var book=@json($books);
+let readcount=book.filter(function(item){
+    return item.user_id!=null
+}).length;
+
+let notreadcount=book.length-readcount;
+
+console.log(book.length)
+console.log(readcount)
+
+
+
     $('#list').change(function(){
         var option = $(this).children("option:selected").val();
         if(option=="read")
+        {
+            if(notreadcount==book.length)
+            {
+                                                                                                           
+                $('#tbody').append('   <tr class="odd" id="no-book"><td valign="top" colspan="1" class="dataTables_empty">No Book Found</td></tr>')                       
+            }
+            else{
+                $('#no-book').remove()
+            }   
         $.each(book, function(i, item) {
+
+           
     if(item.user_id==null)
     $('#'+item.id).css("display","none");
     else
     $('#'+item.id).css("display","table-row");
 });
-
-   else if(option=="notread")
+}
+   else if(option=="notread"){
+    if(readcount==book.length)
+            {
+                                                                                                           
+                $('#tbody').append('   <tr class="odd" id="no-book"><td valign="top" colspan="1" class="dataTables_empty">No Book Found</td></tr>')                       
+            }
+            else{
+                $('#no-book').remove()
+            }
     $.each(book, function(i, item) {
     if(item.user_id!=null)
     $('#'+item.id).css("display","none");
@@ -184,20 +278,41 @@ var book=@json($books);
     $('#'+item.id).css("display","table-row");
 
     });
+}
 
-    else if(option=="all")
+    else if(option=="all"){
+        $('#no-book').remove()
     $.each(book, function(i, item) {
     
     $('#'+item.id).css("display","table-row");
     
     });
+}
+   
 
 });
 
+$("#sidebarToggleTop").remove()
+
 
    
-
+console.log("cdvc");
+    $( document ).ready(function() {
+        console.log("cdvc");
+        $('.dropdown-display-label').addClass("mx-2");
+       
+});
 
     </script>
+
+    <style>
+
+.marking{
+    bottom:25px;
+    left:50%;
+    -webkit-transform: translateX(-50%);
+transform: translateX(-50%)
+}
+        </style>
 
 @endsection

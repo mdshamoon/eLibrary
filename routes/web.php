@@ -24,11 +24,13 @@ Auth::routes(['verify' => true]);
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:delete-users')->group(function(){
   Route::resource('users','UsersController', ['except' => ['show','create','store']]);
   Route::resource('books','BooksController' );
+  Route::get('dashboard','AdminController@index')->name('dashboard');
  
 });
 
