@@ -109,10 +109,10 @@
                                                             <span class="badge badge-primary"></span>
                                                             @if($book->user_id!=null)
                                                             <a href="javascript:void(0)" class="badge badge-success marking position-absolute readBook">
-                                                                    <i class="fa fa-check"></i> You have read this book</a>
+                                                                    <i class="fa fa-check"></i> Read this book</a>
                                                             @else
                                                             <a href="javascript:void(0)"  class="badge badge-primary position-absolute marking bookNotRead" data-item="{{route('books.read', $book->name)}}">
-                                                                   Click to mark the book as read</a>
+                                                                   Click to mark as read</a>
                                                             @endif
                                                            
                                                                
