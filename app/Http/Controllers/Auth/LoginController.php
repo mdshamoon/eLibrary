@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 Use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 use Auth;
 use App\User;
 
@@ -77,8 +78,10 @@ class LoginController extends Controller
         return User::create([
             'name' => $user->name,
             'email' => $user->email,
+            'email_verified_at'=> Carbon::now(),
             'password'=> Hash::make(bin2hex(openssl_random_pseudo_bytes(4))),
             'provider' => $provider,
+            
             'provider_id'=> $user->id
         ]);
     }
