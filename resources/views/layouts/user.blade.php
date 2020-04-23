@@ -53,10 +53,10 @@
                 
                       <!-- Sidebar - Brand -->
                      
-                        <div class="sidebar-brand-icon rotate-n-15 ml-4 h4">
+                        <div class="sidebar-brand-icon rotate-n-15 ml-4 h4 mt-2">
                           <i class="fas fa-book-open"></i>
                         </div>
-                        <div class="sidebar-brand-text mx-3 h4">ELibrary</div>
+                        <div class="sidebar-brand-text mx-3 h4 mt-2">ELibrary</div>
                     
                     
         

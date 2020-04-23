@@ -103,6 +103,13 @@
 
 </head>
 
+<style>
+  .p-5{    padding: 1.5rem!important;
+
+
+  }
+</style>
+
 <body class="bg-gradient-primary">
 
   <div class="container">

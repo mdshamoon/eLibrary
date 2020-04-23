@@ -47,7 +47,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 60px;
             }
 
            
@@ -61,6 +61,7 @@
             }
 
             h3{
+                margin: 0px 20px;
                 max-width: 700px;
                 margin-bottom: 20px;
 
@@ -82,7 +83,7 @@
                 @if (Route::has('login'))
                 <div class="links">
                     @auth
-                       <a href="{{ url('/home') }}">Home</a>
+                       <a href="{{ url('/home') }}" class="btn btn-primary">Home</a>
                     @else
                        <a href="{{ route('login') }}" class="btn btn-primary mr-2">Login</a>
 
