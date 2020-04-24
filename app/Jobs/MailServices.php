@@ -44,7 +44,7 @@ class MailServices implements ShouldQueue
           $startTime = Carbon::parse($lasttime['updated_at']);
             $finishTime = Carbon::now();
             $totalDuration = $finishTime->diffInSeconds($startTime);
-          if( $totalDuration>1296000)
+          if( $totalDuration>86400)
           {
           $user->notify(new sendMails);
           $user->books()->where('book_user.id',$lasttime['id'])->update(['updated_at'=>Carbon::now()]);

@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->job(new MailServices)->everyMinute();
         $schedule->job(new WeeklyMailJob)->sundays();
-        $schedule->command('queue:work')->daily();
+        $schedule->command('queue:work')->everyTenMinutes();
 
 
     }
