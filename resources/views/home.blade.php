@@ -6,7 +6,7 @@
 
 
 <style>
-.container{
+
     @media (min-width: 1200px)
 .container {
     max-width: 1140px;
@@ -23,7 +23,7 @@
 .container {
     max-width: 720px;
 }
-}
+
 </style>
 
 
