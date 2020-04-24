@@ -43,7 +43,7 @@ class sendMails extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->subject('Not in mood of reading')
                     ->line('Hey user we have seen that you have lost your reading habits.')
-                    ->action('Come back to read more books', url('/'))
+                    ->action('Come back to read more books', route('home'))
                     ->line('Thank you');
     }
 
