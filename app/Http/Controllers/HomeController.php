@@ -37,7 +37,7 @@ class HomeController extends Controller
 
             $join->where('book_user.user_id','=',$reads->id) ;
         })
-        ->join('book_genre','books.id','=','book_genre.book_id')->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition')
+        ->join('book_genre','books.id','=','book_genre.book_id')->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover')
         ->get();
 
         return $book;
@@ -75,7 +75,7 @@ class HomeController extends Controller
                 $join->on('books.id','=','book_genre.book_id');
                 $join->whereIn('book_genre.genre_id',$request->genre) ;
 
-            })->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition')->get();
+            })->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover')->get();
      
             return view('home')->with(['books' => $book, 'genre'=>$genre, 'mygenres'=> $request->genre]);
         }
