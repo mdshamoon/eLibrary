@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Book;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Genre;
 use App\User;
 use Carbon\Carbon;

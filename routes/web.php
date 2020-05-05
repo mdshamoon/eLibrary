@@ -34,7 +34,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:dele
  
 });
 
-Route::get('/markread/{id}','Admin\BooksController@read')->name('books.read');
+Route::post('/markread','Admin\BooksController@read')->name('books.read');
 Route::get('/read','HomeController@read')->name('read.books');
 
 Route::get('/home/category','Admin\BooksController@category')->name('books.category');

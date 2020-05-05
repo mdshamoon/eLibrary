@@ -238,14 +238,17 @@ class BooksController extends Controller
         return redirect('admin/books')->with('message','Successfully Removed');
     }
 
-    public function read($name){
+    public function read(Request $request){
+        
         $user= Auth::user();
-        $book= Book::select('id')->where('name',$name)->first();
+        $book= Book::select('id')->where('id',$request->id)->first();
        
-        if($user->books()->where('user_id',$book)->exists())
-          return redirect()->route('home');
+        if($user->books()->where('book_id',$request->id)->exists()){
+            $user->books()->detach($book);
+          return "detached";
+        }
         $user->books()->attach($book);
-        return $book;
+        return 'attached';
     }
 
 
