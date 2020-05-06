@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->job(new MailServices)->everyMinute();
+        $schedule->job(new MailServices)->everyTenMinutes();
         $schedule->job(new WeeklyMailJob)->sundays();
         $schedule->command('queue:work')->everyTenMinutes();
 
