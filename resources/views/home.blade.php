@@ -85,7 +85,7 @@
                 
         
                                                                 
-                <div id="app">
+             <div id="app">
                <card-layout :books="{{$books}}"></card-layout>
 
             </div>
