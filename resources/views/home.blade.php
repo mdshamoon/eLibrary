@@ -86,7 +86,7 @@
         
                                                                 
                 <div id="app">
-               <card-layout :books="books"></card-layout>
+               <card-layout :books="{{$books}}"></card-layout>
 
             </div>
               
@@ -113,13 +113,7 @@ Vue.mixin({
 Vue.prototype.$route = "{{route('books.read')}}";
 
 
-const app = new Vue({
-    el: '#app',
-    data:{
-        books: @json($books),
-        
-    }
-});
+
 
 // $('.bookNotRead').click(function(mybutton){
 //   $.ajax({url: $(this).attr('data-item'), success: function(result){
