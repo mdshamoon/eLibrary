@@ -36,6 +36,7 @@ class WeeklyMailJob implements ShouldQueue
         $users= User::all();
         foreach($users as $user)
         {
+            if(!$user->hasRole('admin')){
           $lasttime= $user->books()->where('book_user.created_at','>=',Carbon::now()->subDays(7))->get();
 
         
@@ -44,6 +45,7 @@ class WeeklyMailJob implements ShouldQueue
           $user->notify(new WeeklyMail($lasttime));
 
         }
+    }
 
 
     }

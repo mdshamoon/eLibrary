@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\HtmlString;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -46,12 +47,12 @@ class WeeklyMail extends Notification implements ShouldQueue
     {
          $books='';
         foreach($this->book as $book)
-        $books=$books.$book->name." ";
+        $books.='<li>'.$book->name.'</li>';
 
     
         return (new MailMessage)
                     ->line('Books read this week.')
-                    ->line($books);
+                    ->line(new HtmlString($books));
     }
 
     /**
