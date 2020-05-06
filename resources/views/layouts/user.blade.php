@@ -20,6 +20,7 @@
 <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
 <script src="{{asset('js/app.js')}}"></script>
 
+
 </head>
 
 <body id="page-top">
@@ -92,6 +93,7 @@
 
       @yield('content')
 
+
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -139,6 +141,8 @@
     </div>
   </div>
 
+ 
+  
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
