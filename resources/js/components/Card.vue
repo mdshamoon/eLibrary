@@ -10,14 +10,16 @@
                     <h5 class="card-title">{{book.name}}</h5>
                     <p class="card-text">Author: {{book.author}}</p>
                     <p class="card-text"><small class="text-muted">Genres: {{book.genre}}</small></p>
+                    <p class="card-text">Quantity: {{book.quantity}}</p>
                     <div class="text-center text-md-left">
                      <a v-if="book.user_id==null" href="javascript:void(0)"  class="badge badge-primary  bookNotRead" @click="markRead">
                         Click to mark as read</a>
-
+                        
                     <a v-else href="javascript:void(0)" class="badge badge-success readBook" @click="markRead">
                         <i class="fa fa-check"></i> Read this book
                     </a>
                     </div>
+                    
                             
                    
                 </div>

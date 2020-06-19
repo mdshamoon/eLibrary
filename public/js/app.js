@@ -1941,6 +1941,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
   props: {
@@ -20357,6 +20359,10 @@ var render = function() {
           _c("small", { staticClass: "text-muted" }, [
             _vm._v("Genres: " + _vm._s(_vm.book.genre))
           ])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "card-text" }, [
+          _vm._v("Quantity: " + _vm._s(_vm.book.quantity))
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "text-center text-md-left" }, [

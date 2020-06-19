@@ -139,6 +139,7 @@ $('#modal-form').attr('action' , itemid);
                   <th>Cover</th>
                   <th>Name</th>
                   <th>Author</th>
+                  <th>Quantity</th>
                   <th>Edition</th>
                   <th>Genre</th>
                   <th>Action</th>
@@ -150,6 +151,7 @@ $('#modal-form').attr('action' , itemid);
                         <th>Cover</th>
                         <th>Name</th>
                         <th>Author</th>
+                        <th>Quantity</th>
                         <th>Edition</th>
                         <th>Genre</th>
                         <th>Action</th>
@@ -162,6 +164,7 @@ $('#modal-form').attr('action' , itemid);
                     <td> <img class="img-profile small-logo " src="{{asset('images/cover/'.$book->cover)}}"></td>
                         <td>{{ $book->name }}</td>
                         <td>{{ $book->author }}</td>
+                        <td><div class="text-center"><a href="#" onclick="issued({{$book->id}})" class="test-danger pr-4 font-weight-bold">-</a><span id="quantity">{{ $book->quantity }}</span><a href="#" onclick="returned({{$book->id}})" class="text-danger pl-4 font-weight-bold">+</a></div></td>
                         <td>{{ $book->edition }}</td>
                         <td>
                                     
@@ -191,6 +194,37 @@ $('#modal-form').attr('action' , itemid);
       </div>
 </div>
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
+<script>
+    function returned(id){
+        $.ajax({
+            url: "{{route('books.returned')}}",
+            type: "get",
+            data: { 
+                bookid:id,
+             },
+            success: function(e){
+                $("#quantity").html(e);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+    function issued(id){
+        $.ajax({
+            url: "{{route('books.issued')}}",
+            type: "get",
+            data: { 
+                bookid: id,
+             },
+            success: function(e){
+                $("#quantity").html(e);
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+</script>
 
 @endsection

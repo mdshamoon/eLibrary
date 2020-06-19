@@ -54,8 +54,17 @@
                             <span class="invalid-feedback ml-2" role="alert">
                                 <strong>{{ $errors->first('author') }} </strong>
                             </span>
+                        @enderror                        
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Edition">Quantity:</label>
+                            <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" placeholder="Enter Quantity" id="quantity"  value="{{$book->quantity}}">
+                            @error('quantity')
+                            <span class="invalid-feedback ml-2" role="alert">
+                                <strong>{{ $errors->first('quantity') }} </strong>
+                            </span>
                         @enderror
-                        
                         </div>
     
                         <div class="form-group">
