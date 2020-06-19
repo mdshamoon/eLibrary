@@ -30,7 +30,7 @@ class HomeController extends Controller
 
     public function joinTables()
     {
-        $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
+        $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover','books.quantity', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
         ->rightjoin('books',function ($join) {
             $join->on('book_user.book_id', '=' , 'books.id') ;
            $reads= auth()->user();
@@ -64,7 +64,7 @@ class HomeController extends Controller
         {
             
             if($request->genre[0]!="all"){
-            $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
+            $book= DB::table('book_user')->select('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover','books.quantity', DB::raw("GROUP_CONCAT(genres.genre SEPARATOR ', ') as genre") )
             ->rightjoin('books',function ($join) {
                 $join->on('book_user.book_id', '=' , 'books.id') ;
                $reads= auth()->user();

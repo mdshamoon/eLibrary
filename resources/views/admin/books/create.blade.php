@@ -53,14 +53,13 @@
                         </span>
                     @enderror
                     
-                    </div>
-
+                    </div>                    
                     <div class="form-group">
-                        <label for="Edition">Edition:</label>
-                        <input type="text" name="edition" class="form-control @error('edition') is-invalid @enderror" placeholder="Enter Edition" id="edition">
-                        @error('edition')
+                        <label for="Edition">Quantity:</label>
+                        <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" placeholder="Enter Quantity" id="quantity">
+                        @error('quantity')
                         <span class="invalid-feedback ml-2" role="alert">
-                            <strong>{{ $errors->first('edition') }} </strong>
+                            <strong>{{ $errors->first('quantity') }} </strong>
                         </span>
                     @enderror
                     </div>
