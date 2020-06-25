@@ -30,9 +30,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:delete-users')->group(function(){
   Route::resource('users','UsersController', ['except' => ['show','create','store']]);
   Route::resource('books','BooksController' );
+  Route::resource('announcements', 'AnnouncementController');
   Route::get('dashboard','AdminController@index')->name('dashboard');
  
 });
+
+
 
 Route::post('/markread','Admin\BooksController@read')->name('books.read');
 Route::get('/read','HomeController@read')->name('read.books');
