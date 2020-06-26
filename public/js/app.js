@@ -1941,6 +1941,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
   props: {
@@ -1949,15 +1977,27 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
+  data: function data() {
+    return {
+      books: null,
+      clicked: false
+    };
+  },
   methods: {
     markRead: function markRead() {
       var self = this;
-      console.log('here');
+      self.books = null;
+      if (self.clicked) self.clicked = false;
+      console.log("here");
       axios.post(this.$route, {
         id: this.book.id
       }).then(function (response) {
-        console.log(response);
-        if (response.data == "attached") self.book.user_id = "0";else self.book.user_id = null;
+        if (response.data[0] == "attached") {
+          self.book.user_id = "0";
+          self.books = response.data[1];
+          self.clicked = true;
+          console.log(self.books);
+        } else self.book.user_id = null;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -20364,11 +20404,11 @@ var render = function() {
             ? _c(
                 "a",
                 {
-                  staticClass: "badge badge-primary  bookNotRead",
+                  staticClass: "badge badge-primary bookNotRead",
                   attrs: { href: "javascript:void(0)" },
                   on: { click: _vm.markRead }
                 },
-                [_vm._v("\n                      Click to mark as read")]
+                [_vm._v("Click to mark as read")]
               )
             : _c(
                 "a",
@@ -20379,12 +20419,73 @@ var render = function() {
                 },
                 [
                   _c("i", { staticClass: "fa fa-check" }),
-                  _vm._v(" Read this book\n                  ")
+                  _vm._v(" Read this book\n        ")
                 ]
               )
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.clicked,
+            expression: "clicked"
+          }
+        ]
+      },
+      [
+        _c("br"),
+        _vm._v(" "),
+        _c("h2", [_vm._v("Suggested books")]),
+        _vm._v(" "),
+        _vm._l(_vm.books, function(book) {
+          return _c(
+            "div",
+            { key: book.id, staticClass: "row no-gutters mb-2" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "col-md-4 text-center text-md-left mt-2 mt-sm-0"
+                },
+                [
+                  _c("img", {
+                    staticClass: "img img-fluid",
+                    staticStyle: { "max-height": "250px" },
+                    attrs: {
+                      src: _vm.public_path + "images/cover/" + book.cover,
+                      alt: ""
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-8" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-body text-center text-md-left" },
+                  [
+                    _c("h5", { staticClass: "card-title" }, [
+                      _vm._v(_vm._s(book.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v("Author: " + _vm._s(book.author))
+                    ])
+                  ]
+                )
+              ])
+            ]
+          )
+        })
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
