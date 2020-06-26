@@ -7,6 +7,7 @@ use App\Book;
 use Illuminate\Support\Facades\DB;
 use App\Genre;
 use App\User;
+use App\Announcement;
 use Carbon\Carbon;
 use App\Notifications\WeeklyMail;
 
@@ -57,7 +58,11 @@ class HomeController extends Controller
 
         $genre= Genre::all();
 
-        
+        $announcements = Announcement::orderBy('id','desc')->take(3)->pluck('announcement_body');
+        $finalAnnouncement = '';
+        foreach($announcements as $announcement ){
+            $finalAnnouncement .= str_pad($announcement, 7);
+        }
 
        
         if($request->filled('genre'))
@@ -76,8 +81,8 @@ class HomeController extends Controller
                 $join->whereIn('book_genre.genre_id',$request->genre) ;
 
             })->join('genres','book_genre.genre_id','=','genres.id')->groupBy('books.id','book_user.user_id','books.name','books.author','books.edition','books.cover')->get();
-     
-            return view('home')->with(['books' => $book, 'genre'=>$genre, 'mygenres'=> $request->genre]);
+            
+            return view('home')->with(['books' => $book, 'genre'=>$genre, 'mygenres'=> $request->genre, 'finalAnnouncement' => $finalAnnouncement]);
         }
     
         else{
@@ -88,19 +93,9 @@ class HomeController extends Controller
 
         else{
             $book=$this->joinTables();
-        }
-
-
-      
-         
-      
-      
-      
-       
-    
-        
-        
-        return view('home')->with(['books' => $book, 'genre'=>$genre,'mygenres'=>[]]);
+        }    
+             
+        return view('home')->with(['books' => $book, 'genre'=>$genre,'mygenres'=>[], 'finalAnnouncement' => $finalAnnouncement]);
     }
 
     // public function read(Request $request)

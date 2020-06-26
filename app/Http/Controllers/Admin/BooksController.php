@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,13 +22,15 @@ class BooksController extends Controller
     public function index(Request $request)
     {
         //
+      
+        $book= Book::all();
+        $announcements = Announcement::orderBy('id','desc')->take(3)->get();
+        $finalAnnouncement = '';
+        foreach($announcements as $announcement ){
+            $finalAnnouncement += $announcement + "   ";
+        }
+        return view('admin.books.index')->with('books',$book)->with('message', $request->message);
 
-        $book = Book::all();
-
-
-
-
-        return view('admin.books.index')->with('books', $book)->with('message', $request->message);
     }
 
     /**

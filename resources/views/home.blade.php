@@ -61,8 +61,7 @@
                                     @foreach($mygenres as $genrename)
                                     @if($Genre->id==$genrename)
                                      selected
-                                     @endif
-    
+                                    @endif    
                                     @endforeach
                                     
                                 
@@ -75,28 +74,16 @@
                                 
                             </select>
                      
-                        <div class="m-auto m-md-0"><button type="submit" class="mt-md-0 mt-2  btn btn-primary">Search</button></div>
-                    
+                        <div class="m-auto m-md-0"><button type="submit" class="mt-md-0 mt-2  btn btn-primary">Search</button></div>                    
                     </form>
                 </div>
             </div>
             </div>
-               
-                
-        
-                                                                
-                <div id="app">
+            <marquee class="text-danger h4 font-weight-bold">{{$finalAnnouncement ?? ''}}</marquee>                 
+            <div id="app">
                <card-layout :books="{{$books}}"></card-layout>
-
-            </div>
-              
-                                                    
-                                                    
-           
-         
-                               
-                          
-</div>
+            </div>        
+        </div>
 
 <script >
 

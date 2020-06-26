@@ -73,6 +73,14 @@
       
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-toggle="modal" data-target="#announcementModal" >
+          <i class="fas fa-fw fa-book"></i>
+          <span>Announcements</span>
+        </a>
+      
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
      
@@ -154,11 +162,11 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="announcementModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="announcementModalLabel">Ready to Leave?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>

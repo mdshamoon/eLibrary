@@ -90,17 +90,58 @@
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
             </div>
-          </div>
+           </div>
           <!-- Card Body -->
           <div class="card-body">
-            
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Announcement</th>
+                  <th scope="col">Created On</th>
+                </tr>
+              </thead>
+              <tbody>
+              @foreach($announcements as $announcement)
+              <tr>
+                <th scope="row">{{$announcement->id}}</th>
+                <td>{{$announcement->announcement_body}}</td>
+                <td>{{$announcement->created_at}}</td>
+              </tr>
+              @endforeach   
+              </tbody>          
+            </table>         
           </div>
         </div>
       </div>
     </div>
     </div>
       
-
+    <div class="modal fade" id="announcementModal" tabindex="-1" role="dialog" aria-labelledby="announcementModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action = "{{route('admin.announcements.store')}}" method="POST">
+            @csrf
+          <div class="modal-header">
+            <h5 class="modal-title" id="announcementModalLabel">Add a Announcement</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Announcement Body</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="announcement"></textarea>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>          
+      </div>
+      </div>
+    </div>
       
     
 
